@@ -1,1 +1,75 @@
 /* Empty. Add your own CSS if you like */
+ion-md-input {
+    position: relative;
+    margin-top: 45px;
+    margin-left: 20px;
+    display: block; }
+ion-md-input input {
+    font-size: 18px !important;
+    padding: 10px 10px 10px 5px !important;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #757575 !important;
+    vertical-align: baseline; }
+ion-md-input input:focus {
+    outline: none; }
+ion-md-input .md-bar {
+    position: relative;
+    display: block;
+    width: 300px; }
+ion-md-input .md-bar:before {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264AE;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all; }
+ion-md-input .md-bar:before {
+    left: 50%; }
+ion-md-input input:focus ~ .md-bar:before {
+    left: 0%;
+    width: 100%; }
+ion-md-input label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 5px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    width: 280px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+ion-md-input input:focus ~ label, ion-md-input input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #5264AE; }
+ion-md-input .md-highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5; }
+ion-md-input input:focus ~ .md-highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease; }
+@-webkit-keyframes inputHighlighter {
+    from { background: #5264AE; }
+    to { width: 0; background: transparent; } }
+@-moz-keyframes inputHighlighter {
+    from { background: #5264AE; }
+    to { width: 0; background: transparent; } }
+@keyframes inputHighlighter {
+    from { background: #5264AE; }
+    to { width: 0; background: transparent; } }
