@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers','starter.reservationControllers','starter.slidecontrollers'])
 
     .directive('ionMdInput', function(){
         return {
@@ -121,12 +121,25 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 }
             })
 
-            .state('app.profile', {
-                url: '/profile',
+            .state('app.reservation', {
+                url: '/reservation',
                 views: {
                     'menuContent': {
-                        templateUrl: 'screens/profile.html',
-                        controller: 'ProfileCtrl'
+                        templateUrl: 'screens/reservation.html',
+                        controller: 'ReservationCtrl'
+                    },
+                    'fabContent': {
+                        template: ''
+                    }
+                }
+            })
+
+            .state('app.tournaments', {
+                url: '/tournaments',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'screens/tournaments.html',
+                        controller: 'TournamentsCtrl'
                     },
                     'fabContent': {
                         template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
@@ -137,8 +150,25 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                         }
                     }
                 }
-            });
+            })
 
-        // if none of the above states are matched, use this as the fallback
+            .state('app.slidetest', {
+                url: '/slidetest',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/slides.html',
+                        controller: 'SlidesCtrl'
+                    },
+                    'fabContent': {
+                        template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
+                        controller: function ($timeout) {
+                            /*$timeout(function () {
+                             document.getElementById('fab-profile').classList.toggle('on');
+                             }, 800);*/
+                        }
+                    }
+                }
+            })
+
         $urlRouterProvider.otherwise('/app/login');
     });

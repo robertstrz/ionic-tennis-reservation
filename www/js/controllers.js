@@ -84,7 +84,7 @@ angular.module('starter.controllers', ['restangular'])
         };
     })
 
-    .controller('LoginCtrl', function ($scope, $timeout, $stateParams, Restangular) {
+    .controller('LoginCtrl', function ($scope, $state, $timeout, $stateParams, $ionicModal, Restangular, apiFactory) {
         $scope.$parent.clearFabs();
         $scope.toggleText = "Login";
         $timeout(function () {
@@ -92,12 +92,18 @@ angular.module('starter.controllers', ['restangular'])
         }, 0);
         ionic.material.ink.displayEffect();
 
-        $scope.sendAngularRequest = function() {
+        $scope.sendAngularRequest = function () {
             console.log("GET RESTANGULAR");
-            Restangular.one('gettoken').get().then(function(data){
+            Restangular.one('gettoken').get().then(function (data) {
                 $scope.toggleText = data.token;
             });
         }
+
+        $scope.testFactory = function () {
+            console.log(apiFactory.doStuff(2))
+            //$state.go('tabs.home');
+        }
+
     })
 
     .controller('FriendsCtrl', function ($scope, $stateParams, $timeout) {
@@ -119,13 +125,15 @@ angular.module('starter.controllers', ['restangular'])
         ionic.material.ink.displayEffect();
     })
 
-    .controller('ProfileCtrl', function ($scope, $stateParams, $timeout) {
+    .controller('TournamentsCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
         // Set Header
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
         $scope.isExpanded = false;
         $scope.$parent.setExpanded(false);
         $scope.$parent.setHeaderFab(false);
+
+        $scope.items = apiFactory.mockTournaments();
 
         // Set Motion
         $timeout(function () {
@@ -143,6 +151,33 @@ angular.module('starter.controllers', ['restangular'])
         // Set Ink
         ionic.material.ink.displayEffect();
     })
+
+    //.controller('ReservationCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
+    //    // Set Header
+    //    $scope.$parent.showHeader();
+    //    $scope.$parent.clearFabs();
+    //    $scope.isExpanded = false;
+    //    $scope.$parent.setExpanded(false);
+    //    $scope.$parent.setHeaderFab(false);
+    //
+    //    $scope.items = apiFactory.mockTournaments();
+    //
+    //    // Set Motion
+    //    $timeout(function () {
+    //        ionic.material.motion.slideUp({
+    //            selector: '.slide-up'
+    //        });
+    //    }, 300);
+    //
+    //    $timeout(function () {
+    //        ionic.material.motion.fadeSlideInRight({
+    //            startVelocity: 3000
+    //        });
+    //    }, 700);
+    //
+    //    // Set Ink
+    //    ionic.material.ink.displayEffect();
+    //})
 
     .controller('ActivityCtrl', function ($scope, $stateParams, $timeout) {
         $scope.$parent.showHeader();

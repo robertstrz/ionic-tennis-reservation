@@ -1,0 +1,24 @@
+<ion-view view-title="Profile">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.activity" class="tab-item">
+                <i class="icon ion-arrow-graph-up-right"></i> Turnieje
+            </a>
+            <a ui-sref="app.friends" class="tab-item">
+                <i class="icon ion-android-people"></i> Informacje
+            </a>
+            <a ui-sref="app.reservation" class="tab-item">
+                <i class="icon ion-android-people"></i> Informacje
+            </a>
+        </div>
+        <div class="list animate-fade-slide-in-right">
+            <a ui-sref="app.slidetest" collection-repeat="item in items" class="item item-avatar item-icon-right">
+                <img src="../img/ball_avatar.png">
+                <h2>{{item.city}}</h2>
+                <p>{{item.date}}</p>
+                <i class="icon ion-chatbubble muted"></i>
+            </a>
+        </div>
+
+    </ion-content>
+</ion-view>

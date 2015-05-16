@@ -1,0 +1,37 @@
+<ion-view view-title="Rezerwacje">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="row">
+            <div class="col">
+                <div ng-controller="DaysModalCtrl">
+                    <button class="button button-stable" ng-click="showDaysModal()">
+                        {{selectedDay}}
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <div ng-controller="CourtsModalCtrl">
+                    <button class="button button-stable" ng-click="showCourtsModal()">
+                        {{selectedCourt}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.activity" class="tab-item">
+                <i class="icon ion-arrow-graph-up-right"></i> Turnieje
+            </a>
+            <a ui-sref="app.friends" class="tab-item">
+                <i class="icon ion-android-people"></i> Informacje
+            </a>
+        </div>
+        <div class="list animate-fade-slide-in-right">
+            <a ui-sref="app.friends" collection-repeat="reservationItem in reservationItems" class="item item-avatar item-icon-right">
+                <img src="img/ball_avatar.png">
+                <h2>{{reservationItem.user_name}}</h2>
+                <p>{{reservationItem.from}}</p>
+                <i class="icon ion-chatbubble muted"></i>
+            </a>
+        </div>
+
+    </ion-content>
+</ion-view>

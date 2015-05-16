@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
@@ -23,14 +23,148 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <script src="js/ApiFactory.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="js/reservation_controller.js"></script>
+    <script src="js/slidecontrollers.js"></script>
     <script src="lib/others/ion-md-input.js"></script>
     <script src="lib/lodash/lodash.min.js"></script>
     <script src="lib/restangular/dist/restangular.min.js"></script>
-  </head>
-  <body ng-app="starter">
+</head>
+<body ng-app="starter">
 
-    <ion-pane>
-      <ion-nav-view></ion-nav-view>
-  </body>
+<ion-nav-view></ion-nav-view>
+
+
+<script id="screens/tabs.html" type="text/ng-template">
+    <ion-view>
+        <ion-tabs class="tabs-icon-top tabs-positive">
+
+            <ion-tab title="Home" icon="ion-home" href="#/tab/home">
+                <ion-nav-view name="home-tab"></ion-nav-view>
+            </ion-tab>
+
+            <ion-tab title="About" icon="ion-ios-information" href="#/tab/about">
+                <ion-nav-view name="about-tab"></ion-nav-view>
+            </ion-tab>
+
+            <ion-tab title="Sign-Out" icon="ion-log-out" href="#/sign-in">
+            </ion-tab>
+
+        </ion-tabs>
+    </ion-view>
+</script>
+
+<script id="screens/home.html" type="text/ng-template">
+    <ion-view view-title="Home">
+        <ion-content padding="true">
+            <p>Example of Ionic tabs. Navigate to each tab, and
+                navigate to child views of each tab and notice how
+                each tab has its own navigation history.</p>
+            <p>
+                <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a>
+            </p>
+        </ion-content>
+    </ion-view>
+</script>
+<script id="modal/days.html" type="text/ng-template">
+    <ion-modal-view style="min-height: 0;width: 90%; height: 50%; top: 5%; left: 5%; right: 5%; bottom: 25%; margin-bottom: 50px;">
+        <ion-content has-bouncing="true">
+            <div class="row">
+                <div class="col">
+                    <button class="button" ng-click="closeDayModal()">Cancel</button>
+                </div>
+                <div class="col">
+                    <h5>Form</h5>
+                </div>
+            </div>
+            <ion-list>
+                <ion-item ng-repeat="day in days" ng-click="clickDayItem(day)">
+                    {{day}}
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-modal-view>
+</script>
+<script id="modal/courts.html" type="text/ng-template">
+    <ion-modal-view style="min-height: 0;width: 90%; height: 50%; top: 5%; left: 5%; right: 5%; bottom: 25%; margin-bottom: 50px;">
+        <ion-content has-bouncing="true">
+            <div class="row">
+                <div class="col">
+                    <button class="button" ng-click="closeCourtsModal()">Cancel</button>
+                </div>
+                <div class="col">
+                    <h5>Form</h5>
+                </div>
+            </div>
+            <ion-list>
+                <ion-item ng-repeat="court in courts" ng-click="clickCourtItem(court.number)">
+                    {{court.number}}
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-modal-view>
+</script>
+
+<script id="templates/slides.html" type="text/ng-template">
+    <ion-view>
+        <ion-nav-title>
+            <button
+                    ng-click="showDefaultSlides()"
+                    class="button button-icon button-light button-clear ion-ios-home-outline"
+                    style="padding-top:5px;">
+            </button>
+        </ion-nav-title>
+        <ion-nav-buttons side="left">
+            <button
+                    ng-click="previous()"
+                    class="button button-light button-clear no-animation">
+                <b>Previous</b>
+            </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button
+                    ng-click="showDetails()"
+                    class="button button-icon button-light button-clear ion-ios-information-outline"
+                    style="padding-right:15px;">
+            </button>
+            <button
+                    ng-click="next()"
+                    class="button button-light button-clear no-animation"
+                    style="padding-left:15px;">
+                <b>Next</b>
+            </button>
+        </ion-nav-buttons>
+
+        <ion-content scroll="false">
+            <!-- Setting default background color to one of the two colors of our slides in order to hide the fact that vary fast sliding will momentarily show white regions -->
+            <ion-slide-box
+                    style="height:100%; background:#8080c5;"
+                    on-slide-changed="slideChanged($index)"
+                    active-slide="selectedSlide"
+                    does-continue="false"
+                    show-pager="true">
+
+                <ion-slide ng-repeat="slide in slides">
+                    <div class="list animate-fade-slide-in-right">
+                        <a ui-sref="app.friends" ng-repeat="reservationItem in slide.courtHoursItems" class="item item-avatar item-icon-right" collection-item-width="'100%'">
+                            <img src="img/ball_avatar.png">
+                            <h2>{{reservationItem.user_name}}</h2>
+                            <p>{{reservationItem.from}}</p>
+                            <i class="icon ion-chatbubble muted"></i>
+                        </a>
+                    </div>
+                </ion-slide>
+
+            </ion-slide-box>
+        </ion-content>
+
+        <ion-footer-bar align-title="left" class="bar-dark">
+            <div class="title" style="color:#999;">made by <a href="https://twitter.com/zarkoh" target="_blank">zarko</a>; forum <a href="http://forum.ionicframework.com/t/dynamic-slides/8002" target="_blank">thread</a></div>
+        </ion-footer-bar>
+
+    </ion-view>
+</script>
+
+</body>
 </html>
