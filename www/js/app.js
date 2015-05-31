@@ -134,12 +134,43 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.reservationCo
                 }
             })
 
+            .state('app.information', {
+                url: '/information',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'screens/information.html',
+                        controller: 'InformationCtrl'
+                    },
+                    'fabContent': {
+                        template: ''
+                    }
+                }
+            })
+
             .state('app.tournaments', {
                 url: '/tournaments',
                 views: {
                     'menuContent': {
                         templateUrl: 'screens/tournaments.html',
                         controller: 'TournamentsCtrl'
+                    },
+                    'fabContent': {
+                        template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
+                        controller: function ($timeout) {
+                            /*$timeout(function () {
+                             document.getElementById('fab-profile').classList.toggle('on');
+                             }, 800);*/
+                        }
+                    }
+                }
+            })
+
+            .state('app.tournamentDetails', {
+                url: '/tournamentDetails',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'screens/tournamentDetails.html',
+                        controller: 'TournamentDetailsCtrl'
                     },
                     'fabContent': {
                         template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
@@ -170,5 +201,45 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.reservationCo
                 }
             })
 
+            .state('tabs', {
+                url: "/tab",
+                abstract: true,
+                templateUrl: "tabs.html"
+            })
+            .state('tabs.home', {
+                url: "/home",
+                views: {
+                    'home-tab': {
+                        templateUrl: "screens/tournaments.html"
+                    }
+                }
+            })
+            .state('tabs.facts', {
+                url: "/facts",
+                views: {
+                    'home-tab': {
+                        templateUrl: 'screens/tournaments.html'
+                    }
+                }
+            })
+            .state('tabs.about', {
+                url: "/about",
+                views: {
+                    'about-tab': {
+                        templateUrl: 'screens/tournaments.html'
+                    }
+                }
+            })
+            .state('tabs.contact', {
+                url: "/contact",
+                views: {
+                    'contact-tab': {
+                        templateUrl: 'screens/tournaments.html'
+                    }
+                }
+            });
+
         $urlRouterProvider.otherwise('/app/login');
+        //$urlRouterProvider.otherwise("/tab/home");
+
     });

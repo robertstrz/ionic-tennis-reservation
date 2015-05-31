@@ -1,0 +1,44 @@
+<ion-view view-title="Szczegółowe informacje">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.tournaments" class="tab-item">
+                <i class="icon ion-android-list"></i> Turnieje
+            </a>
+            <a ui-sref="app.information" class="tab-item">
+                <i class="icon ion-ios-information"></i> Informacje
+            </a>
+            <a ui-sref="app.slidetest" class="tab-item">
+                <i class="icon ion-ios-tennisball"></i> Rezerwój
+            </a>
+        </div>
+        <div class="list animate-fade-slide-in-right">
+            <a href="#/app/profile" class="item">
+                <h2>{{details.city}}</h2>
+                <p>Od: {{details.date}} do: {{details.date}}</p>
+            </a>
+            <a href="#/app/profile" class="item">
+                <h2>Nawierzchnia: {{details.nawierzchnia}}</h2>
+            </a>
+        </div>
+
+        <div class="item card-item">
+            <div ui-sref="app.gallery" class="card stable-bg ink ink-dark">
+                <div class="item item-text-wrap">
+                    <a class="image"><img src="img/kort_tenisowy.jpg">
+                    </a>
+                    <div class="card-footer text-right">
+                        <i class="icon ion-chatbubble positive"></i> 2
+                        <i class="icon ion-heart assertive"></i> 4
+                        <div class="pull-left">
+                            <i class="icon ion-clock"></i> 3 hrs ago
+                        </div>
+                    </div>
+                    <div>
+                        <p>{{details.description}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

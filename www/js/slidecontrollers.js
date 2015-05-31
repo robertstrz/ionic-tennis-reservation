@@ -74,6 +74,7 @@ angular.module('starter.slidecontrollers', [])
             });
         };
         $scope.showDefaultSlides = function () {
+            console.log("defailt");
             var
                 i = $ionicSlideBoxDelegate.currentIndex(),
                 previous_index = i === 0 ? 2 : i - 1,
@@ -91,15 +92,16 @@ angular.module('starter.slidecontrollers', [])
 
         $scope.slideChanged = function (i) {
             console.log("I: ", i);
+            console.log($ionicSlideBoxDelegate.currentIndex());
             var
                 previous_index = i === 0 ? 2 : i - 1,
                 next_index = i === 2 ? 0 : i + 1,
                 new_direction = $scope.slides[i].nr > $scope.slides[previous_index].nr ? 1 : -1;
 
-            angular.copy(
-                createSlideData(new_direction, direction),
-                $scope.slides[new_direction > 0 ? next_index : previous_index]
-            );
+            //angular.copy(
+            //    createSlideData(new_direction, direction, courtsJsonObject[1].court_hours),
+            //    $scope.slides[new_direction > 0 ? next_index : previous_index]
+            //);
             direction = new_direction;
         };
 
@@ -107,7 +109,7 @@ angular.module('starter.slidecontrollers', [])
             head = $scope.slides[0].nr,
             tail = $scope.slides[$scope.slides.length - 1].nr;
 
-        var createSlideData = function (new_direction, old_direction) {
+        var createSlideData = function (new_direction, old_direction, some_data) {
             var nr;
             if (new_direction === 1) {
                 tail = old_direction < 0 ? head + 3 : tail + 1;
@@ -121,12 +123,14 @@ angular.module('starter.slidecontrollers', [])
                 return default_slides[default_slides_indexes.indexOf(nr)];
             };
             console.log("Number ", nr);
+            console.log(some_data);
             return makeSlide(nr, {
                 title: 'generated slide', get color() {
                     return getColor(this.nr)
-                }
-                //courtHoursItems: courtsJsonObject[1].court_hours
+                },
+                courtHoursItems: some_data
             });
+
         };
 
     });

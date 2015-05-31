@@ -125,8 +125,35 @@ angular.module('starter.controllers', ['restangular'])
         ionic.material.ink.displayEffect();
     })
 
-    .controller('TournamentsCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
+    .controller('InformationCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
         // Set Header
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+        $scope.$parent.setHeaderFab(false);
+
+        $scope.informations = apiFactory.mockInformation();
+
+        // Set Motion
+        $timeout(function () {
+            ionic.material.motion.slideUp({
+                selector: '.slide-up'
+            });
+        }, 300);
+
+        $timeout(function () {
+            ionic.material.motion.fadeSlideInRight({
+                startVelocity: 3000
+            });
+        }, 700);
+
+        // Set Ink
+        ionic.material.ink.displayEffect();
+    })
+
+    .controller('TournamentsCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
+         //Set Header
         $scope.$parent.showHeader();
         $scope.$parent.clearFabs();
         $scope.isExpanded = false;
@@ -152,32 +179,33 @@ angular.module('starter.controllers', ['restangular'])
         ionic.material.ink.displayEffect();
     })
 
-    //.controller('ReservationCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
-    //    // Set Header
-    //    $scope.$parent.showHeader();
-    //    $scope.$parent.clearFabs();
-    //    $scope.isExpanded = false;
-    //    $scope.$parent.setExpanded(false);
-    //    $scope.$parent.setHeaderFab(false);
-    //
-    //    $scope.items = apiFactory.mockTournaments();
-    //
-    //    // Set Motion
-    //    $timeout(function () {
-    //        ionic.material.motion.slideUp({
-    //            selector: '.slide-up'
-    //        });
-    //    }, 300);
-    //
-    //    $timeout(function () {
-    //        ionic.material.motion.fadeSlideInRight({
-    //            startVelocity: 3000
-    //        });
-    //    }, 700);
-    //
-    //    // Set Ink
-    //    ionic.material.ink.displayEffect();
-    //})
+    .controller('TournamentDetailsCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
+        // Set Header
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+        $scope.$parent.setHeaderFab(false);
+
+        $scope.details = apiFactory.mockTournamentDetails();
+
+        // Set Motion
+        $timeout(function () {
+            ionic.material.motion.slideUp({
+                selector: '.slide-up'
+            });
+        }, 300);
+
+        $timeout(function () {
+            ionic.material.motion.fadeSlideInRight({
+                startVelocity: 3000
+            });
+        }, 700);
+
+        // Set Ink
+        ionic.material.ink.displayEffect();
+    })
+
 
     .controller('ActivityCtrl', function ($scope, $stateParams, $timeout) {
         $scope.$parent.showHeader();

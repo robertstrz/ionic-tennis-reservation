@@ -1,0 +1,36 @@
+<ion-view view-title="Informacje">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.tournaments" class="tab-item">
+                <i class="icon ion-android-list"></i> Turnieje
+            </a>
+            <a ui-sref="app.information" class="tab-item">
+                <i class="icon ion-ios-information"></i> Informacje
+            </a>
+            <a ui-sref="app.slidetest" class="tab-item">
+                <i class="icon ion-ios-tennisball"></i> Rezerwój
+            </a>
+        </div>
+
+        <div class="item card-item" collection-repeat="information in informations">
+            <div ui-sref="app.gallery" class="card stable-bg ink ink-dark">
+                <div class="item item-text-wrap">
+                    <div>
+                        <p>{{information.title}}</p>
+                    </div>
+                    <a class="image"><img src="{{information.image_url}}">
+                    </a>
+                    <div class="card-footer text-right">
+                        <i class="icon ion-chatbubble positive"></i> 2
+                        <i class="icon ion-heart assertive"></i> 4
+                        <div class="pull-left">
+                            <i class="icon ion-clock"></i> 3 hrs ago
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
