@@ -1,0 +1,33 @@
+<ion-view hide-nav-bar="true" view-title="Registration" align-title="left">
+    <ion-content style="background: url(img/main_background_blurred.jpg) center; background-size: cover;">
+        <div class="hero no-header flat">
+            <div class="content">
+                <div class="app-icon"></div>
+                <h1>Tennis Portal</h1>
+            </div>
+        </div>
+        <div class="list">
+            <!--<ion-md-input label="Name, Second Name and First Name and again Name" placeholder="Username" highlight-color="balanced" type="text"></ion-md-input>-->
+            <!--<ion-md-input label="Name, Second Name and First Name and again Name" placeholder="Password" highlight-color="energized" type="password"></ion-md-input>-->
+            <label class="item item-input item-floating-label login-only-bottom-border">
+                <span class="input-label input-login-text-color">Email address</span>
+                <input type="text" class="input-login-text-color" placeholder="Login">
+            </label>
+            <label class="item item-input item-floating-label login-only-bottom-border">
+                <span class="input-label input-login-text-color">Password</span>
+                <input type="text" class="input-login-text-color" placeholder="Hasło">
+            </label>
+            <label class="item item-input item-floating-label login-only-bottom-border">
+                <span class="input-label input-login-text-color">Retype password</span>
+                <input type="text" class="input-login-text-color" placeholder="Powtórz hasło">
+            </label>
+        </div>
+        <div class="padding">
+            <button ui-sref="tabs.tournaments" ng-click="sendAngularRequest()" class="button button-block button-outline teal-border input-login-text-color">Rejestracja</button>
+        </div>
+        <button class="button button-outline fixed-outside" ui-sref="login">
+            <i class="icon ion-email"></i>
+            Login
+        </button>
+    </ion-content>
+</ion-view>

@@ -1,6 +1,78 @@
 angular.module('starter.slidecontrollers', [])
 
-    .controller('SlidesCtrl', function ($scope, $timeout, $ionicSlideBoxDelegate, $ionicPopup, $filter, apiFactory) {
+    .controller('SlidesCtrl', function ($scope, $timeout, $ionicSlideBoxDelegate, $ionicPopup, $filter, apiFactory, $ionicPopover, $ionicModal) {
+
+        $scope.slotsFrom = {epochTime: 55800, step: 30, format: 24};
+        $scope.slotsTo = {epochTime: 55800, step: 30, format: 24};
+        $scope.epochTimeTo = 55800;
+        $scope.epochTimeFrom = 55800;
+        $scope.timePickerCallbackFrom = function (val) {
+            if (typeof (val) === 'undefined') {
+                console.log('Time not selected');
+            } else {
+                console.log('Selected time is : ', val);
+                $scope.epochTimeFrom = val;
+            }
+        };
+
+        $scope.timePickerCallbackTo = function (val) {
+            if (typeof (val) === 'undefined') {
+                console.log('Time not selected');
+            } else {
+                console.log('Selected time is : ', val);
+                $scope.epochTimeTo = val;
+            }
+        };
+
+        $scope.courtNumber = 0;
+
+        $ionicModal.fromTemplateUrl('modal/reservation-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.reservationModal = modal;
+        });
+
+        $scope.openReservationModal = function () {
+            $scope.reservationModal.show();
+        };
+
+        $scope.closeReservationModal = function () {
+            $scope.reservationModal.hide();
+        };
+
+        $scope.$on('$destroy', function () {
+            $scope.reservationModal.remove();
+        });
+
+        $scope.$on('reservationModal.hidden', function () {
+            // Execute action
+        });
+
+        $scope.$on('reservationModal.removed', function () {
+            // Execute action
+        });
+
+        $scope.clickCourtItem = function (courtNumber) {
+            $scope.selectedCourt = courtNumber;
+            $scope.closeCourtsModal();
+        }
+
+
+        $ionicPopover.fromTemplateUrl('templates/popover.html', {
+            scope: $scope,
+        }).then(function(popover) {
+            $scope.popover = popover;
+        });
+
+        $scope.demo = 'ios';
+        $scope.setPlatform = function(p) {
+            document.body.classList.remove('platform-ios');
+            document.body.classList.remove('platform-android');
+            document.body.classList.add('platform-' + p);
+            $scope.demo = p;
+        }
+
         var getColor = function (nr) {
             return nr % 2 === 0 ? '#8080c5' : '#80b280';
         };
@@ -11,32 +83,10 @@ angular.module('starter.slidecontrollers', [])
                 nr: nr
             });
         };
-        // Set Header
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = false;
-        $scope.$parent.setExpanded(false);
-        $scope.$parent.setHeaderFab(false);
 
         $scope.items = apiFactory.mockTournaments();
 
-        // Set Motion
-        $timeout(function () {
-            ionic.material.motion.slideUp({
-                selector: '.slide-up'
-            });
-        }, 300);
-
-        $timeout(function () {
-            ionic.material.motion.fadeSlideInRight({
-                startVelocity: 3000
-            });
-        }, 700);
-
-        // Set Ink
-        ionic.material.ink.displayEffect();
         var courtsJsonObject = apiFactory.mockCourtReservation();
-        //$scope.reservationItems = apiFactory.mockCourtReservation()[1].court_hours;
         var
             default_slides = [],
             default_slides_indexes = [];
@@ -54,10 +104,10 @@ angular.module('starter.slidecontrollers', [])
                 courtHoursItems: courtsJsonObject[courtNumber].court_hours
             }));
         }, default_slides_indexes);
-        default_slides_indexes = [ -1,0 ,1];
 
         $scope.slides = angular.copy(default_slides);
-        $scope.selectedSlide = 1; // initial
+        console.log(default_slides);
+        $scope.selectedSlide = 0; // initial
 
         $scope.previous = function () {
             $ionicSlideBoxDelegate.previous();
@@ -74,7 +124,6 @@ angular.module('starter.slidecontrollers', [])
             });
         };
         $scope.showDefaultSlides = function () {
-            console.log("defailt");
             var
                 i = $ionicSlideBoxDelegate.currentIndex(),
                 previous_index = i === 0 ? 2 : i - 1,
@@ -91,46 +140,17 @@ angular.module('starter.slidecontrollers', [])
         var direction = 0;
 
         $scope.slideChanged = function (i) {
-            console.log("I: ", i);
-            console.log($ionicSlideBoxDelegate.currentIndex());
             var
                 previous_index = i === 0 ? 2 : i - 1,
                 next_index = i === 2 ? 0 : i + 1,
                 new_direction = $scope.slides[i].nr > $scope.slides[previous_index].nr ? 1 : -1;
 
-            //angular.copy(
-            //    createSlideData(new_direction, direction, courtsJsonObject[1].court_hours),
-            //    $scope.slides[new_direction > 0 ? next_index : previous_index]
-            //);
             direction = new_direction;
+            $scope.courtNumber = $ionicSlideBoxDelegate.currentIndex();
         };
 
         var
             head = $scope.slides[0].nr,
             tail = $scope.slides[$scope.slides.length - 1].nr;
-
-        var createSlideData = function (new_direction, old_direction, some_data) {
-            var nr;
-            if (new_direction === 1) {
-                tail = old_direction < 0 ? head + 3 : tail + 1;
-            }
-            else {
-                head = old_direction > 0 ? tail - 3 : head - 1;
-            }
-
-            nr = new_direction === 1 ? tail : head;
-            if (default_slides_indexes.indexOf(nr) !== -1) {
-                return default_slides[default_slides_indexes.indexOf(nr)];
-            };
-            console.log("Number ", nr);
-            console.log(some_data);
-            return makeSlide(nr, {
-                title: 'generated slide', get color() {
-                    return getColor(this.nr)
-                },
-                courtHoursItems: some_data
-            });
-
-        };
 
     });

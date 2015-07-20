@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['restangular'])
+angular.module('starter.controllers', ['restangular', 'ionic-timepicker' ,'ionicLazyLoad'])
 
     .controller('AppCtrl', function ($scope, $ionicModal, $ionicPopover, $timeout, Restangular) {
         // Form data for the login modal
@@ -85,160 +85,42 @@ angular.module('starter.controllers', ['restangular'])
     })
 
     .controller('LoginCtrl', function ($scope, $state, $timeout, $stateParams, $ionicModal, Restangular, apiFactory) {
-        $scope.$parent.clearFabs();
-        $scope.toggleText = "Login";
-        $timeout(function () {
-            $scope.$parent.hideHeader();
-        }, 0);
-        ionic.material.ink.displayEffect();
-
-        $scope.sendAngularRequest = function () {
-            console.log("GET RESTANGULAR");
-            Restangular.one('gettoken').get().then(function (data) {
-                $scope.toggleText = data.token;
-            });
-        }
-
-        $scope.testFactory = function () {
-            console.log(apiFactory.doStuff(2))
-            //$state.go('tabs.home');
-        }
 
     })
 
-    .controller('FriendsCtrl', function ($scope, $stateParams, $timeout) {
-        // Set Header
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.$parent.setHeaderFab('left');
+    .controller('RegistrationCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
 
-        // Delay expansion
-        $timeout(function () {
-            $scope.isExpanded = true;
-            $scope.$parent.setExpanded(true);
-        }, 300);
-
-        // Set Motion
-        ionic.material.motion.fadeSlideInRight();
-
-        // Set Ink
-        ionic.material.ink.displayEffect();
     })
 
     .controller('InformationCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
-        // Set Header
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = false;
-        $scope.$parent.setExpanded(false);
-        $scope.$parent.setHeaderFab(false);
 
         $scope.informations = apiFactory.mockInformation();
+        $scope.items = [
+            { id: 1, name: 'Cat 1', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 2, name: 'Cat 2', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 3, name: 'Cat 3', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 4, name: 'Cat 4', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 5, name: 'Cat 5', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 6, name: 'Cat 6', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 7, name: 'Cat 7', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 8, name: 'Cat 8', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 9, name: 'Cat 9', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 10, name: 'Cat 10', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' },
+            { id: 11, name: 'Cat 11', image: 'http://i.huffpost.com/gen/964776/images/o-CATS-KILL-BILLIONS-facebook.jpg' }
+        ];
 
-        // Set Motion
-        $timeout(function () {
-            ionic.material.motion.slideUp({
-                selector: '.slide-up'
-            });
-        }, 300);
 
-        $timeout(function () {
-            ionic.material.motion.fadeSlideInRight({
-                startVelocity: 3000
-            });
-        }, 700);
-
-        // Set Ink
-        ionic.material.ink.displayEffect();
     })
 
     .controller('TournamentsCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
-         //Set Header
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = false;
-        $scope.$parent.setExpanded(false);
-        $scope.$parent.setHeaderFab(false);
 
         $scope.items = apiFactory.mockTournaments();
+        console.log($scope.items);
 
-        // Set Motion
-        $timeout(function () {
-            ionic.material.motion.slideUp({
-                selector: '.slide-up'
-            });
-        }, 300);
-
-        $timeout(function () {
-            ionic.material.motion.fadeSlideInRight({
-                startVelocity: 3000
-            });
-        }, 700);
-
-        // Set Ink
-        ionic.material.ink.displayEffect();
     })
 
     .controller('TournamentDetailsCtrl', function ($scope, $stateParams, $timeout, apiFactory) {
-        // Set Header
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = false;
-        $scope.$parent.setExpanded(false);
-        $scope.$parent.setHeaderFab(false);
 
         $scope.details = apiFactory.mockTournamentDetails();
-
-        // Set Motion
-        $timeout(function () {
-            ionic.material.motion.slideUp({
-                selector: '.slide-up'
-            });
-        }, 300);
-
-        $timeout(function () {
-            ionic.material.motion.fadeSlideInRight({
-                startVelocity: 3000
-            });
-        }, 700);
-
-        // Set Ink
-        ionic.material.ink.displayEffect();
-    })
-
-
-    .controller('ActivityCtrl', function ($scope, $stateParams, $timeout) {
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = true;
-        $scope.$parent.setExpanded(true);
-        $scope.$parent.setHeaderFab('right');
-
-        $timeout(function () {
-            ionic.material.motion.fadeSlideIn({
-                selector: '.animate-fade-slide-in .item'
-            });
-        }, 200);
-
-        // Activate ink for controller
-        ionic.material.ink.displayEffect();
-    })
-
-    .controller('GalleryCtrl', function ($scope, $stateParams, $timeout) {
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = true;
-        $scope.$parent.setExpanded(true);
-        $scope.$parent.setHeaderFab(false);
-
-        // Activate ink for controller
-        ionic.material.ink.displayEffect();
-
-        ionic.material.motion.pushDown({
-            selector: '.push-down'
-        });
-        ionic.material.motion.fadeSlideInRight({
-            selector: '.animate-fade-slide-in .item'
-        });
 
     });

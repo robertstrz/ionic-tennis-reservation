@@ -157,16 +157,31 @@ p {
 
 .dajred .item-content{
     margin: 5px;
-    background-color: #FF8A65 !important;
+    /*background-color: #FF8A65 !important;*/
+    background: rgba(250,255,250,0.5);
     border-radius: 10px;
     padding: 0px !important;
 }
 
-.my-header-bar {
-    box-shadow: none !important;
+.list a{
+    /*background-color: #FF8A65 !important;*/
+    border-radius: 10px;
+    background: rgba(250,255,250,0.7);
+    margin: 10px;
+
 }
 
-.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
-     color: red;
- }
+.fixed-outside{
+    position: absolute;
+    bottom: 0;
+    color:white;
+    width: 100%;
+    background: rgba(255, 0, 0 ,0.5) !important;
+    border: none;
+}
 
+.login-only-bottom-border {
+    border-left-width: 0px;
+    border-top-width: 0px;
+    border-right-width: 0px;
+}

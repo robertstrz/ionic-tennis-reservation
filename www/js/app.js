@@ -3,16 +3,15 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'starter.controllers','starter.reservationControllers','starter.slidecontrollers'])
+var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.reservationControllers', 'starter.slidecontrollers'])
 
-    .directive('ionMdInput', function(){
+    .directive('ionMdInput', function () {
         return {
             restrict: 'E',
             transclude: true,
-            template:
-            '<input type="text" required>'+
-            '<span class="md-highlight"></span>'+
-            '<span class="md-bar"></span>'+
+            template: '<input type="text" required>' +
+            '<span class="md-highlight"></span>' +
+            '<span class="md-bar"></span>' +
             '<label>{{label}}</label>',
             scope: {
                 'label': '@'
@@ -33,8 +32,52 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.reservationCo
         });
     })
 
+    .directive('standardTimeNoMeridian', function() {
+        return {
+            restrict: 'AE',
+            replace: true,
+            scope: {
+                etime: '=etime'
+            },
+            template: "<strong>{{stime}}</strong>",
+            link: function(scope, elem, attrs) {
+
+                scope.stime = epochParser(scope.etime, 'time');
+
+                function prependZero(param) {
+                    if (String(param).length < 2) {
+                        return "0" + String(param);
+                    }
+                    return param;
+                }
+
+                function epochParser(val, opType) {
+                    if (val === null) {
+                        return "00:00";
+                    } else {
+                        if (opType === 'time') {
+                            var hours = parseInt(val / 3600);
+                            var minutes = (val / 60) % 60;
+
+                            return (prependZero(hours) + ":" + prependZero(minutes));
+                        }
+                    }
+                }
+
+                scope.$watch('etime', function(newValue, oldValue) {
+                    scope.stime = epochParser(scope.etime, 'time');
+                });
+
+            }
+        };
+    })
+
     .config(function (RestangularProvider) {
         RestangularProvider.setBaseUrl('http://demo7078193.mockable.io/');
+    })
+
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+        $ionicConfigProvider.navBar.alignTitle('left');
     })
 
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -50,7 +93,6 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.reservationCo
         $stateProvider.state('app', {
             url: '/app',
             abstract: true,
-            templateUrl: 'screens/menu.html',
             controller: 'AppCtrl'
         })
 
@@ -201,45 +243,75 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.reservationCo
                 }
             })
 
-            .state('tabs', {
-                url: "/tab",
-                abstract: true,
-                templateUrl: "tabs.html"
+            .state('login', {
+                url: '/login',
+                templateUrl: 'screens/login.html',
+                controller: 'LoginCtrl'
             })
-            .state('tabs.home', {
-                url: "/home",
-                views: {
-                    'home-tab': {
-                        templateUrl: "screens/tournaments.html"
-                    }
-                }
-            })
-            .state('tabs.facts', {
-                url: "/facts",
-                views: {
-                    'home-tab': {
-                        templateUrl: 'screens/tournaments.html'
-                    }
-                }
-            })
-            .state('tabs.about', {
-                url: "/about",
-                views: {
-                    'about-tab': {
-                        templateUrl: 'screens/tournaments.html'
-                    }
-                }
-            })
-            .state('tabs.contact', {
-                url: "/contact",
-                views: {
-                    'contact-tab': {
-                        templateUrl: 'screens/tournaments.html'
-                    }
-                }
-            });
 
-        $urlRouterProvider.otherwise('/app/login');
-        //$urlRouterProvider.otherwise("/tab/home");
+            .state('registration', {
+                url: '/registration',
+                templateUrl: 'screens/registration.html',
+                controller: 'RegistrationCtrl'
+            })
+
+            .state('tabs', {
+                url: '/tab',
+                controller: 'TabsCtrl',
+                templateUrl: 'tabs.html'
+            })
+
+
+            .state('tabs.slides', {
+                url: '/slides',
+                views: {
+                    'slides-tab': {
+                        templateUrl: 'templates/slides.html',
+                        controller: 'SlidesCtrl'
+                    }
+                }
+            })
+
+            .state('tabs.tournaments', {
+                url: '/tournaments',
+                views: {
+                    'tournaments-tab': {
+                        templateUrl: 'screens/tournaments.html',
+                        controller: 'TournamentsCtrl'
+                    }
+                }
+            })
+
+            .state('tabs.information', {
+                url: '/information',
+                views: {
+                    'information-tab': {
+                        templateUrl: 'screens/information.html',
+                        controller: 'InformationCtrl'
+                    }
+                }
+            })
+
+        $urlRouterProvider.otherwise("/login");
 
     });
+
+app.controller('TabsCtrl', function ($scope, $ionicSideMenuDelegate) {
+
+    $scope.openMenu = function () {
+        $ionicSideMenuDelegate.toggleLeft();
+    }
+
+});
+
+app.controller('HomeTabCtrl', function ($scope, $ionicSideMenuDelegate) {
+
+});
+
+app.controller('AboutCtrl', function ($scope, $ionicSideMenuDelegate) {
+    $scope.openMenu = function () {
+        $ionicSideMenuDelegate.toggleLeft();
+    }
+});
+
+

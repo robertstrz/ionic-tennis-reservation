@@ -1,31 +1,24 @@
-<ion-view view-title="Profile">
-    <ion-content ng-class="{expanded:$scope.isExpanded}">
-        <div class="tabs tabs-assertive tabs-icon-top static">
-            <a ui-sref="app.tournaments" class="tab-item">
-                <i class="icon ion-android-list"></i> Turnieje
-            </a>
-            <a ui-sref="app.information" class="tab-item">
-                <i class="icon ion-ios-information"></i> Informacje
-            </a>
-            <a ui-sref="app.slidetest" class="tab-item">
-                <i class="icon ion-ios-tennisball"></i> Rezerwój
-            </a>
+<ion-view view-title="Tenis Portal">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" ng-click="openMenu()"></button>
+    </ion-nav-buttons>
+    <ion-content style="background: url(img/teal_background.jpg) center; background-size: cover;">
+
+        <div class="list card" ng-repeat="item in items">
+            <div class="item tournaments-card">
+                <h2 style="color: #4DB6AC;">Pretty Hate Machine</h2>
+                <p style="color:#004D40;">Nine Inch Nails</p>
+            </div>
+            <div class="item item-body tournaments-card">
+                <img class="full-image" src="img/agnieszka.jpeg">
+                <a ui-sref="app.friends">
+                    <p style="color:#004D40;">
+                        This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
+                        the content is from a card-body consisting of an image and paragraph text. The footer
+                        consists of tabs, icons aligned left, within the card-footer.
+                    </p>
+                </a>
+            </div>
         </div>
-        <ion-list class="list animate-fade-slide-in-right" >
-            <ion-item ui-sref="app.tournamentDetails" ng-repeat="item in items" class="item">
-                <div class="row">
-                    <div class="col"><h2>{{item.city}}</h2></div>
-                    <div class="col">{{item.date}}</div>
-                </div>
-                <div class="row">
-                    <div class="col">{{item.description}} </div>
-                </div>
-                <!--<img src="../img/ball_avatar.png">-->
-
-
-            </ion-item>
-        </ion-list>
-
-
     </ion-content>
 </ion-view>

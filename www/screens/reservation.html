@@ -25,11 +25,10 @@
             </a>
         </div>
         <div class="list animate-fade-slide-in-right">
-            <a ui-sref="app.friends" collection-repeat="reservationItem in reservationItems" class="item item-avatar item-icon-right">
+            <a ui-sref="app.friends" collection-repeat="reservationItem in reservationItems" ng-click="openReservationModal()" class="item item-avatar item-icon-right dajred">
                 <img src="img/ball_avatar.png">
                 <h2>{{reservationItem.user_name}}</h2>
                 <p>{{reservationItem.from}}</p>
-                <i class="icon ion-chatbubble muted"></i>
             </a>
         </div>
 

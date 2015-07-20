@@ -82,6 +82,7 @@ angular.module('starter.reservationControllers', [])
             $scope.closeCourtsModal();
         }
     })
+
     .controller('ReservationCtrl', function ($scope, $timeout, apiFactory) {
 
         $scope.reservationItems = apiFactory.mockCourtReservation()[0].court_hours;
